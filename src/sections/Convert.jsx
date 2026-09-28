@@ -83,7 +83,7 @@ function Success({ domain, email, phone }) {
         {Array.from({ length: 12 }).map((_, i) => (
           <motion.i key={i} style={{ rotate: i * 30 }} initial={{ scaleY: 0, opacity: 1 }} animate={{ scaleY: [0, 1, 0], opacity: [1, 1, 0] }} transition={{ duration: 0.8, delay: 0.15 }} />
         ))}
-        <motion.svg viewBox="0 0 64 64" width="72" height="72" initial={{ scale: 0.4 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 14 }}>
+        <motion.svg viewBox="0 0 64 64" width="56" height="56" initial={{ scale: 0.4 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 14 }}>
           <circle cx="32" cy="32" r="30" fill="#E53935" />
           <motion.path d="M19 33 L28 42 L45 23" fill="none" stroke="#fff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.25 }} />
         </motion.svg>
