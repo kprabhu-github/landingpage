@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Globe, Mail, Phone, ShieldCheck, Sparkles, X } from "lucide-react";
+import { ArrowRight, Mail, Phone, ShieldCheck, Sparkles, X } from "lucide-react";
 import { ease, Logo, Reveal } from "../components/ui.jsx";
 import { checkEmail, checkPhone, cleanDomain, isValidDomain, submitLead } from "../lead.js";
 import { engineLogo } from "../engines.js";
@@ -219,7 +219,6 @@ export function ReportModal({ open, onClose, website, setWebsite }) {
                 <button type="button" className="rm-close" onClick={onClose} aria-label="Close"><X size={18} /></button>
               </div>
               <div className="rm-title">Your real score is <em>one step away.</em></div>
-              {domain && <span className="rm-domain"><Globe size={14} />{domain}</span>}
             </div>
             <LeadForm website={website} setWebsite={setWebsite} idPrefix="modal" cardId="" title={domain ? "Where should we send it?" : "Get your free report"} sub={domain ? "Your website is filled in. Add your email and phone number." : "Three quick details. No credit card."} />
           </motion.div>

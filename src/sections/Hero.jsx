@@ -354,12 +354,6 @@ export function HeroAISearchExperience({ domain, onCheck }) {
           </span>
         </div>
 
-        <div className="ais-scenarios-bar" role="tablist" aria-label="Pick an industry">
-          {SCENARIOS.map((s, i) => (
-            <button key={s.id} role="tab" aria-selected={i === idx} className={"ais-scenario-tab" + (i === idx ? " active" : "")} onClick={() => pick(i)}>{s.label}</button>
-          ))}
-        </div>
-
         <QueryBar t={t} question={scenario.question} onCheck={onCheck} />
 
         <div className="ax-area">
