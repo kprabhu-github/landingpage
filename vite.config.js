@@ -5,7 +5,7 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 // `npm run build` -> normal multi-file build in dist/
 // `npm run build:single` -> one self-contained HTML file in dist-single/
 export default defineConfig(({ mode }) => ({
-  base: "./",
+  base: "/usa/meta-ads/",
   plugins: [react(), ...(mode === "single" ? [viteSingleFile()] : [])],
   build: mode === "single" ? { outDir: "dist-single" } : { outDir: "dist" },
 }));
