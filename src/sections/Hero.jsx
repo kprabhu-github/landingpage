@@ -349,7 +349,6 @@ export function HeroAISearchExperience({ domain, onCheck }) {
         <div className="ais-top">
           <span className="ais-top-l"><span className="ais-live" />AI visibility check</span>
           <span className="ais-top-r">
-            <span className="chip" style={{ height: 22, fontSize: 11 }}>Example</span>
             <button className="ais-replay" onClick={replay} aria-label="Replay the example"><RotateCcw size={13} /></button>
           </span>
         </div>

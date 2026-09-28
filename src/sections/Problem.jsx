@@ -1,6 +1,6 @@
 import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView } from "framer-motion";
-import { ArrowRight, Check, Search, Sparkles } from "lucide-react";
+import { ArrowRight, Search, Sparkles } from "lucide-react";
 import { ease, Reveal } from "../components/ui.jsx";
 
 /*
@@ -146,7 +146,7 @@ export default function Problem() {
                   <div>
                     <div className="k">Brand recommendation</div>
                     <motion.div className="reco" animate={{ opacity: shownStep >= 3 ? 1 : 0.35 }} transition={{ duration: 0.35, ease }}>
-                      <span className="badge"><Check size={16} strokeWidth={2.5} /></span>
+                      <span className="reco-mark" aria-hidden="true">{S.brand.charAt(0)}</span>
                       <span style={{ fontSize: 14 }}><b>{S.brand} gets the customer.</b><br /><span style={{ color: "var(--muted)" }}>The rest were never mentioned.</span></span>
                     </motion.div>
                   </div>

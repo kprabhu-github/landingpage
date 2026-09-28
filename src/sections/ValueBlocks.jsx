@@ -2,6 +2,9 @@ import { useEffect, useRef, useState } from "react";
 import { AnimatePresence, motion, useInView } from "framer-motion";
 import { Check, FileText, Search, ShieldCheck, Sparkles, X } from "lucide-react";
 import { AreaChart, Bar, CountUp, ease, Reveal, Ring } from "../components/ui.jsx";
+import { engineLogo } from "../engines.js";
+
+const ENGINE_ID = { ChatGPT: "chatgpt", Gemini: "gemini", Perplexity: "perplexity", "AI Overviews": "google-ai" };
 
 const ANSWERS = {
   ChatGPT: { a: ["For a 10-person team, ", ["Ledgerly", 1], " is often recommended for its tax filing and payroll in one place."], pos: "Named 1st" },
@@ -24,7 +27,7 @@ function AiBlock() {
   return (
     <div className="block-ui" ref={ref}>
       <div style={{ display: "flex", justifyContent: "space-between", gap: 8, flexWrap: "wrap", alignItems: "center" }}>
-        <div className="eng-tabs">{keys.map((k, j) => <button key={k} className={i === j ? "on" : ""} onClick={() => setI(j)}>{k}</button>)}</div>
+        <div className="eng-tabs">{keys.map((k, j) => <button key={k} className={i === j ? "on" : ""} onClick={() => setI(j)}>{engineLogo(ENGINE_ID[k]) && <img className="eng-tab-logo" src={engineLogo(ENGINE_ID[k])} alt="" aria-hidden="true" />}{k}</button>)}</div>
       </div>
       <div style={{ fontSize: 12.5, color: "var(--muted)" }}>Prompt: "best accounting software for a small team"</div>
       <div style={{ minHeight: 86 }}>

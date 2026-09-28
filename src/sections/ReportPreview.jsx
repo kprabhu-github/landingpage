@@ -32,7 +32,7 @@ export default function ReportPreview({ domain, onStart }) {
 
             <div className="report-grid">
               <div className="r-sec">
-                <div className="k"><span>AI Visibility Score</span><span>01</span></div>
+                <div className="k"><span>AI Visibility Score</span></div>
                 <div style={{ display: "flex", alignItems: "center", gap: 18, marginTop: 4 }}>
                   <div style={{ width: 84, height: 84, borderRadius: 99, border: "7px solid var(--red)", display: "grid", placeItems: "center", fontFamily: "var(--f-display)", fontWeight: 600, fontSize: 26, background: "var(--surface)", flexShrink: 0 }}>
                     67
@@ -46,7 +46,7 @@ export default function ReportPreview({ domain, onStart }) {
               </div>
 
               <div className="r-sec">
-                <div className="k"><span>Competitor Insights</span><span>02</span></div>
+                <div className="k"><span>Competitor Insights</span></div>
                 <div style={{ display: "grid", gap: 9, marginTop: 4 }}>
                   {[["BVAccel", 78], [d || "Your Brand", 54], ["We Make Websites", 49]].map(([k, v], i) => (
                     <div key={k} className="metric-row" style={{ fontSize: 12.5 }}>
@@ -59,7 +59,7 @@ export default function ReportPreview({ domain, onStart }) {
               </div>
 
               <div className="r-sec">
-                <div className="k"><span>Missing Opportunities</span><span>03</span></div>
+                <div className="k"><span>Missing Opportunities</span></div>
                 <div className="blur" style={{ display: "grid", gap: 8, fontSize: 13.5 }}>
                   <span>27 prompts where competitors are named</span>
                   <span>9 keywords ranking 11 to 20</span>
@@ -68,7 +68,7 @@ export default function ReportPreview({ domain, onStart }) {
               </div>
 
               <div className="r-sec">
-                <div className="k"><span>Growth Recommendations</span><span>04</span></div>
+                <div className="k"><span>Growth Recommendations</span></div>
                 <div className="blur" style={{ display: "grid", gap: 8, fontSize: 13.5 }}>
                   <span>1. Rewrite the pricing page for AI answers</span>
                   <span>2. Unblock AI crawlers on the docs folder</span>
