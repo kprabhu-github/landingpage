@@ -626,6 +626,8 @@ body { background: var(--page); }
 .ok-list { display: grid; gap: 8px; width: 100%; margin-top: 6px; text-align: left; }
 .ok-list > span { display: flex; gap: 10px; align-items: flex-start; padding: 10px 12px; border-radius: 12px; background: var(--surface-2); border: 1px solid var(--line); font-size: 13.5px; color: var(--ink-2); line-height: 1.45; }
 .ok-list svg { color: var(--red); flex: none; margin-top: 2px; }
+.ok-cta { width: 100%; height: 50px; margin-top: 4px; justify-content: center; text-decoration: none; }
+.ok-cta svg { color: currentColor; }
 
 /* 12. Footer + in-page document viewer */
 .foot2 { padding-block: 44px 28px; background: #fff; border-top: 1px solid var(--line); }

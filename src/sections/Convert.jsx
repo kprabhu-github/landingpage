@@ -97,6 +97,9 @@ function Success({ domain, email, phone }) {
         <span><Phone size={15} /><span>A RankNexus specialist may call <b>{phone}</b> to walk you through it</span></span>
         <span><Sparkles size={15} /><span>Includes your AI visibility score, competitor gaps and priority fixes</span></span>
       </motion.div>
+      <motion.a className="btn btn-dark ok-cta" href="https://ranknexus.ai/" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.65 }}>
+        Login to dashboard <ArrowRight size={16} />
+      </motion.a>
     </motion.div>
   );
 }
