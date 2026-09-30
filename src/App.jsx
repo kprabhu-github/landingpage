@@ -13,25 +13,36 @@ import { FinalConversion, ReportModal } from "./sections/Convert.jsx";
 import Footer from "./sections/Footer.jsx";
 import ThankYou from "./sections/ThankYou.jsx";
 
-const TY_HASH = "#thank-you";
+// Thank-you page lives at <base>/thankyou (e.g. ranknexus.ai/usa/meta-ads/thankyou)
+// Worked out from the current URL so it works wherever the page is hosted
+const LANDING = location.pathname.replace(/\/thankyou(\.html)?\/?$/, "").replace(/\/index\.html$/, "").replace(/\/$/, "") || "";
+const BASE = LANDING + "/";
+const TY_PATH = LANDING + "/thankyou";
+const LEAD_KEY = "rn_lead";
+const onThankYouPath = () => /\/thankyou(\.html)?\/?$/.test(location.pathname) || location.hash === "#thankyou";
+const readLead = () => { try { return JSON.parse(sessionStorage.getItem(LEAD_KEY) || "null"); } catch { return null; } };
 
 export default function App() {
   // The website typed in the hero follows the visitor down the page
   const [website, setWebsite] = useState("");
   const [modal, setModal] = useState(false);
   const domain = isValidDomain(website) ? cleanDomain(website) : "";
-  // After a successful submit the page switches to a full thank-you view at #thank-you
-  const [lead, setLead] = useState(null);
+  // After a successful submit the page switches to the thank-you view at /thankyou
+  const [lead, setLead] = useState(() => (onThankYouPath() ? readLead() : null));
 
   useEffect(() => {
-    if (location.hash === TY_HASH) history.replaceState(null, "", location.pathname + location.search);
+    // Opened /thankyou directly without submitting: send them to the landing page
+    if (onThankYouPath() && !readLead()) { if (location.protocol === "file:") history.replaceState(null, "", location.pathname); else location.replace(BASE); return; }
+    const TITLE = "RankNexus Search Intelligence Report";
     const onThanks = (e) => {
       setModal(false);
       setLead(e.detail);
-      history.pushState({ ty: true }, "", TY_HASH);
+      try { sessionStorage.setItem(LEAD_KEY, JSON.stringify(e.detail)); } catch { /* private mode */ }
+      // Opened straight from disk (file://) there is no server to answer /thankyou, so use a hash there
+      if (location.protocol === "file:") history.pushState({ ty: true }, "", "#thankyou");
+      else history.pushState({ ty: true }, "", TY_PATH);
     };
-    const onPop = () => { if (location.hash !== TY_HASH) { setLead(null); document.title = TITLE; } };
-    const TITLE = document.title;
+    const onPop = () => { if (onThankYouPath()) setLead(readLead()); else { setLead(null); document.title = TITLE; } };
     window.addEventListener("rn:thanks", onThanks);
     window.addEventListener("popstate", onPop);
     return () => { window.removeEventListener("rn:thanks", onThanks); window.removeEventListener("popstate", onPop); };
