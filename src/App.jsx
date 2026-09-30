@@ -16,7 +16,6 @@ import ThankYou from "./sections/ThankYou.jsx";
 // Thank-you page lives at <base>/thank-you (e.g. ranknexus.ai/usa/meta-ads/thank-you)
 // Worked out from the current URL so it works wherever the page is hosted
 const LANDING = location.pathname.replace(/\/thank-you(\.html)?\/?$/, "").replace(/\/index\.html$/, "").replace(/\/$/, "") || "";
-const BASE = LANDING + "/";
 const TY_PATH = LANDING + "/thank-you";
 const LEAD_KEY = "rn_lead";
 const onThankYouPath = () => /\/thank-you(\.html)?\/?$/.test(location.pathname) || location.hash === "#thank-you";
@@ -34,7 +33,7 @@ export default function App() {
 
   useEffect(() => {
     // Opened /thank-you directly without submitting: send them to the landing page
-    if (onThankYouPath() && !readLead()) { if (location.protocol === "file:") history.replaceState(null, "", location.pathname); else location.replace(BASE); return; }
+    if (onThankYouPath() && !readLead()) { if (location.protocol === "file:") history.replaceState(null, "", location.pathname); else location.replace(LANDING || "/"); return; }
     const TITLE = "RankNexus Search Intelligence Report";
     const onThanks = (e) => {
       setModal(false);

@@ -41,6 +41,8 @@ The website typed in the hero carries through to the pop-up, report preview and 
 
 After a successful submit the address changes to `<landing path>/thank-you` without reloading. So a reload or a direct visit also works, the build writes `thank-you.html` and `thank-you/index.html` next to `index.html` (in `dist/`, `dist-single/` and `deploy/`). Upload all three with the page. Opening `/thank-you` directly (without submitting in that tab) redirects to the landing page, so "URL contains /thank-you" is safe as the conversion rule. The `thank_you_view` dataLayer event fires at the same moment.
 
+Any address that doesn't exist (for example `/usa/meta-ads/thankyou` or a typo) serves `404.html`, which sends the visitor straight to https://ranknexus.ai/usa/meta-ads.
+
 ## Before launch
 
 - **Lead endpoint:** set `LEAD_ENDPOINT` in `src/lead.js` (CRM, HubSpot, Zoho or a serverless function). Until then submissions only log to the browser console.
