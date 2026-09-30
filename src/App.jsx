@@ -36,11 +36,6 @@ export default function App() {
     return () => { window.removeEventListener("rn:thanks", onThanks); window.removeEventListener("popstate", onPop); };
   }, []);
 
-  function leaveThanks() {
-    if (history.state?.ty) history.back();
-    else { setLead(null); history.replaceState(null, "", location.pathname + location.search); }
-  }
-
   function goToForm() {
     const el = document.getElementById("get-report");
     if (!el) return;
@@ -56,7 +51,7 @@ export default function App() {
           <span className="top-note"><span className="live" />Free Search Intelligence Report</span>
         </div>
       </header>
-      {lead ? <ThankYou lead={lead} onBack={leaveThanks} /> : <main>
+      {lead ? <ThankYou lead={lead} /> : <main>
         <Hero website={website} setWebsite={setWebsite} onReveal={() => setModal(true)} />
         <Problem />
         <IntelligenceLayer />
@@ -65,7 +60,7 @@ export default function App() {
         <ReportPreview domain={domain} onStart={goToForm} />
         <FinalConversion website={website} setWebsite={setWebsite} />
       </main>}
-      <Footer onForm={lead ? leaveThanks : goToForm} />
+      {!lead && <Footer onForm={goToForm} />}
       <ReportModal open={modal} onClose={() => setModal(false)} website={website} setWebsite={setWebsite} />
     </MotionConfig>
   );

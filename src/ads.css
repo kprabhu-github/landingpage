@@ -733,43 +733,44 @@ body { background: var(--page); }
 .metric-row > :last-child { grid-column: 1 / -1; }
 
 /* ---------- Thank-you page ---------- */
-.ty { background: var(--bg); }
-.ty-hero { position: relative; overflow: hidden; padding: clamp(56px, 8vw, 96px) 0 clamp(48px, 6vw, 72px); border-bottom: 1px solid var(--line); }
-.ty-glow { position: absolute; inset: 0; background: radial-gradient(640px 320px at 50% 0%, rgba(229,57,53,.10), transparent 70%); pointer-events: none; }
-.ty-hero-in { position: relative; display: grid; justify-items: center; text-align: center; gap: 16px; }
-.ty-check { filter: drop-shadow(0 12px 24px rgba(229,57,53,.28)); margin-bottom: 4px; }
-.ty-kicker { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--red); }
-.ty-title { margin: 0; font-family: var(--f-display); font-weight: 600; font-size: clamp(32px, 5vw, 52px); line-height: 1.05; letter-spacing: -0.03em; max-width: 18ch; }
+.ty { --ty-bg: #f4f4f3; position: relative; overflow: hidden; min-height: calc(100vh - 84px); display: grid; place-items: center; padding: clamp(40px, 7vw, 88px) var(--gutter, 20px); background: var(--ty-bg); }
+.ty-bg { position: absolute; inset: 0; pointer-events: none;
+  background-image: linear-gradient(rgba(10,10,11,.05) 1px, transparent 1px), linear-gradient(90deg, rgba(10,10,11,.05) 1px, transparent 1px);
+  background-size: 44px 44px; -webkit-mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%); mask-image: radial-gradient(ellipse 70% 60% at 50% 40%, #000 20%, transparent 75%); }
+.ty-bg::after { content: ""; position: absolute; inset: 0; background: radial-gradient(520px 320px at 50% 18%, rgba(22,163,74,.10), transparent 70%), radial-gradient(420px 260px at 85% 90%, rgba(229,57,53,.08), transparent 70%); }
+.ty-ticket { position: relative; width: min(640px, 100%); background: #fff; border-radius: 28px; border: 1px solid var(--line); box-shadow: 0 1px 0 rgba(0,0,0,.02), 0 40px 80px -40px rgba(10,10,11,.28); }
+.ty-top { display: grid; justify-items: center; text-align: center; gap: 12px; padding: clamp(36px, 5vw, 52px) clamp(22px, 5vw, 48px) clamp(28px, 4vw, 36px); }
+.ty-check { position: relative; width: 72px; height: 72px; display: grid; place-items: center; margin: 6px 0 18px; }
+.ty-check svg { position: relative; filter: drop-shadow(0 10px 20px rgba(22,163,74,.35)); }
+.ty-pulse { position: absolute; inset: 0; border-radius: 50%; border: 2px solid rgba(22,163,74,.45); animation: tyPulse 2.4s ease-out infinite; }
+.ty-pulse.d2 { animation-delay: 1.2s; }
+@keyframes tyPulse { from { transform: scale(1); opacity: .9; } to { transform: scale(1.7); opacity: 0; } }
+@media (prefers-reduced-motion: reduce) { .ty-pulse { animation: none; opacity: 0; } }
+.ty-kicker { display: inline-flex; align-items: center; gap: 6px; height: 26px; padding: 0 12px; border-radius: 99px; background: #ecfdf3; color: #15803d; font-family: var(--f-mono); font-size: 11.5px; letter-spacing: .08em; text-transform: uppercase; }
+.ty-title { margin: 4px 0 0; display: grid; gap: 2px; font-family: var(--f-display); font-weight: 600; letter-spacing: -0.03em; line-height: 1.08; }
+.ty-title span { display: block; white-space: nowrap; font-size: clamp(24px, 4.4vw, 40px); }
+.ty-title span:first-child { font-size: clamp(34px, 6.4vw, 56px); }
 .ty-title em { font-style: normal; color: var(--red); }
-.ty-sub { margin: 0; font-size: clamp(16px, 1.6vw, 18px); color: var(--muted); max-width: 48ch; }
-.ty-sub b { color: var(--ink); }
-.ty-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; width: 100%; max-width: 860px; margin-top: 16px; text-align: left; }
-.ty-card { display: flex; gap: 12px; align-items: center; padding: 16px 18px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface-2); min-width: 0; }
-.ty-card small { display: block; font-size: 12px; color: var(--muted); margin-bottom: 2px; }
-.ty-card b { display: block; font-size: 14.5px; font-weight: 600; overflow-wrap: anywhere; }
-.ty-card > div { min-width: 0; }
-.ty-ic { width: 40px; height: 40px; border-radius: 12px; background: #fff; border: 1px solid #f6d6d5; color: var(--red); display: grid; place-items: center; flex: none; }
-.ty-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
-.ty-btn { height: 50px; padding: 0 24px; gap: 8px; text-decoration: none; }
-.ty-sec { padding: clamp(48px, 6vw, 80px) 0 clamp(56px, 7vw, 96px); background: var(--surface-2); }
-.ty-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
-.ty-panel { background: var(--bg); border: 1px solid var(--line); border-radius: 24px; padding: clamp(22px, 3vw, 32px); display: grid; gap: 20px; align-content: start; }
-.ty-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
-.ty-steps li { display: flex; gap: 14px; align-items: flex-start; }
-.ty-steps b, .ty-inside b { display: block; font-size: 15px; font-weight: 600; }
-.ty-steps p, .ty-inside p { margin: 3px 0 0; font-size: 13.5px; color: var(--muted); line-height: 1.5; }
-.ty-n { width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: #fff; font-family: var(--f-mono); font-size: 13px; display: grid; place-items: center; flex: none; }
-.ty-engines { border-top: 1px solid var(--line); padding-top: 16px; display: grid; gap: 10px; }
-.ty-engines small { font-size: 12px; color: var(--muted); }
-.ty-engines > div { display: flex; flex-wrap: wrap; gap: 8px; }
-.ty-engines span { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px 0 6px; border-radius: 99px; border: 1px solid var(--line); font-size: 13px; background: var(--surface-2); }
-.ty-engines img { width: 20px; height: 20px; object-fit: contain; border-radius: 6px; background: #fff; padding: 1px; }
-.ty-inside { display: grid; gap: 12px; }
-.ty-inside > div { display: flex; gap: 14px; align-items: flex-start; padding: 14px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface-2); }
-.ty-note { display: flex; gap: 8px; align-items: center; justify-content: center; margin-top: 28px; font-size: 13px; color: var(--muted); text-align: center; }
-.ty-note svg { flex: none; }
-@media (max-width: 860px) {
-  .ty-cards, .ty-grid { grid-template-columns: minmax(0, 1fr); }
-  .ty-actions { width: 100%; }
-  .ty-btn { flex: 1 1 100%; justify-content: center; }
+.ty-sub { margin: 4px 0 0; font-size: clamp(15px, 1.5vw, 17px); color: var(--muted); max-width: 44ch; }
+.ty-sub b { color: var(--ink); overflow-wrap: anywhere; }
+.ty-perf { position: relative; height: 0; border-top: 2px dashed var(--line-2, #e2dfdf); margin: 0 26px; }
+.ty-perf::before, .ty-perf::after { content: ""; position: absolute; top: -15px; width: 28px; height: 28px; border-radius: 50%; background: var(--ty-bg); border: 1px solid var(--line); }
+.ty-perf::before { left: -42px; clip-path: inset(0 0 0 50%); }
+.ty-perf::after { right: -42px; clip-path: inset(0 50% 0 0); }
+.ty-bottom { display: grid; gap: 22px; padding: clamp(24px, 4vw, 32px) clamp(22px, 5vw, 44px) clamp(28px, 4vw, 40px); }
+.ty-rows { list-style: none; margin: 0; padding: 0; display: grid; gap: 14px; }
+.ty-rows li { display: flex; align-items: center; gap: 12px; min-width: 0; font-size: 14.5px; }
+.ty-ic { width: 36px; height: 36px; border-radius: 10px; background: #fff5f5; border: 1px solid #f6d6d5; color: var(--red); display: grid; place-items: center; flex: none; }
+.ty-k { color: var(--muted); white-space: nowrap; }
+.ty-dots { flex: 1; min-width: 16px; border-bottom: 2px dotted #dcd8d8; transform: translateY(3px); }
+.ty-v { font-weight: 600; color: var(--ink); text-align: right; overflow-wrap: anywhere; min-width: 0; }
+.ty-btn { height: 54px; width: 100%; justify-content: center; gap: 8px; font-size: 16px; text-decoration: none; border-radius: 16px; }
+@media (max-width: 560px) {
+  .ty { min-height: calc(100vh - 72px); }
+  .ty-title span { font-size: 22px; }
+  .ty-title span:first-child { font-size: 36px; }
+  .ty-rows li { flex-wrap: wrap; row-gap: 2px; }
+  .ty-dots { display: none; }
+  .ty-rows li .ty-k { flex: 1; }
+  .ty-v { flex-basis: 100%; text-align: left; padding-left: 48px; }
 }
