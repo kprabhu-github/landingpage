@@ -52,7 +52,7 @@ export default function App() {
     <MotionConfig reducedMotion="user">
       <header className="topbar">
         <div className="wrap">
-          <img className="brand-logo" src={logoUrl} alt="RankNexus – get cited by AI" width="170" height="42" />
+          <img className="brand-logo" src={logoUrl} alt="RankNexus – get cited by AI" width="179" height="42" />
           <span className="top-note"><span className="live" />Free Search Intelligence Report</span>
         </div>
       </header>
