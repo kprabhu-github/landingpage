@@ -1,6 +1,7 @@
 import { useEffect, useState } from "react";
 import { MotionConfig } from "framer-motion";
 import logoUrl from "./assets/brand/ranknexus-logo.svg";
+import logoWhiteUrl from "./assets/brand/ranknexus-logo-white.svg";
 import { cleanDomain, isValidDomain } from "./lead.js";
 import Hero from "./sections/Hero.jsx";
 import Problem from "./sections/Problem.jsx";
@@ -45,9 +46,9 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <header className="topbar">
+      <header className={"topbar" + (lead ? " topbar-dark" : "")}>
         <div className="wrap">
-          <img className="brand-logo" src={logoUrl} alt="RankNexus – get cited by AI" width="179" height="42" />
+          <img className="brand-logo" src={lead ? logoWhiteUrl : logoUrl} alt="RankNexus – get cited by AI" width="179" height="42" />
           <span className="top-note"><span className="live" />Free Search Intelligence Report</span>
         </div>
       </header>

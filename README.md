@@ -22,7 +22,7 @@ npm run build:single  # dist-single/index.html, one self-contained file
 5. **Pricing:** Solo, Team, Pro, Custom (launch prices).
 6. **Report preview:** locked preview personalised with the visitor's domain.
 7. **Final form:** website, business email, phone -> scan animation -> confirmation.
-8. **Thank-you page:** after a successful submit the page switches to a full thank-you view at `#thank-you` (one screen, no scroll: green tick inside a slowly rotating 'Request received / Report on its way' seal, headline, email/phone/website chips, Login to dashboard). It pushes `{ event: "thank_you_view" }` to `window.dataLayer`.
+8. **Thank-you page:** after a successful submit the page switches to a full thank-you view at `#thank-you` (dark, one screen, no scroll: a red slash wipes in, giant 'Thank you' with a green tick, 'Your report is on its way.', email/phone/website, Login to dashboard; the RankNexus X floats in the background). It pushes `{ event: "thank_you_view" }` to `window.dataLayer`.
 9. **Footer:** Contact, Terms, Privacy, Sub-processors, Cookie Policy, Cookie settings, Refund & Cancellation, Shipping & Delivery. Each opens in an in-page viewer; nothing links away from the page.
 
 The website typed in the hero carries through to the pop-up, report preview and final form.
