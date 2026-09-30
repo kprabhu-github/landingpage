@@ -1,6 +1,6 @@
 import { useEffect, useState } from "react";
 import { AnimatePresence, motion } from "framer-motion";
-import { ArrowRight, Mail, Phone, ShieldCheck, Sparkles, X } from "lucide-react";
+import { ArrowRight, ShieldCheck, Sparkles, X } from "lucide-react";
 import { ease, Logo, Reveal } from "../components/ui.jsx";
 import { checkEmail, checkPhone, cleanDomain, isValidDomain, submitLead } from "../lead.js";
 import { engineLogo } from "../engines.js";
@@ -75,35 +75,6 @@ function ScanLoader({ domain }) {
   );
 }
 
-/* ---------- Success ---------- */
-function Success({ domain, email, phone }) {
-  return (
-    <motion.div key="done" className="ok" initial={{ opacity: 0 }} animate={{ opacity: 1 }} transition={{ duration: 0.3 }}>
-      <div className="ok-badge">
-        {Array.from({ length: 12 }).map((_, i) => (
-          <motion.i key={i} style={{ rotate: i * 30 }} initial={{ scaleY: 0, opacity: 1 }} animate={{ scaleY: [0, 1, 0], opacity: [1, 1, 0] }} transition={{ duration: 0.8, delay: 0.15 }} />
-        ))}
-        <motion.svg viewBox="0 0 64 64" width="56" height="56" initial={{ scale: 0.4 }} animate={{ scale: 1 }} transition={{ type: "spring", stiffness: 260, damping: 14 }}>
-          <circle cx="32" cy="32" r="30" fill="#E53935" />
-          <motion.path d="M19 33 L28 42 L45 23" fill="none" stroke="#fff" strokeWidth="5" strokeLinecap="round" strokeLinejoin="round" initial={{ pathLength: 0 }} animate={{ pathLength: 1 }} transition={{ duration: 0.5, delay: 0.25 }} />
-        </motion.svg>
-      </div>
-      <motion.h3 initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.35 }}>Your report is on its way</motion.h3>
-      <motion.p initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.45 }}>
-        We're building the full Search Intelligence Report for <b>{domain}</b>.
-      </motion.p>
-      <motion.div className="ok-list" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.55 }}>
-        <span><Mail size={15} /><span>Your report will be sent to <b>{email}</b> shortly</span></span>
-        <span><Phone size={15} /><span>A RankNexus specialist may call <b>{phone}</b> to walk you through it</span></span>
-        <span><Sparkles size={15} /><span>Includes your AI visibility score, competitor gaps and priority fixes</span></span>
-      </motion.div>
-      <motion.a className="btn btn-dark ok-cta" href="https://ranknexus.ai/" initial={{ opacity: 0, y: 8 }} animate={{ opacity: 1, y: 0 }} transition={{ delay: 0.65 }}>
-        Login to dashboard <ArrowRight size={16} />
-      </motion.a>
-    </motion.div>
-  );
-}
-
 export function LeadForm({ website, setWebsite, idPrefix = "lead", cardId = "get-report", title = "Get your free report", sub = "Three quick details. No credit card." }) {
   const fid = (k) => `${idPrefix}-${k}`;
   const [email, setEmail] = useState("");
@@ -128,7 +99,9 @@ export function LeadForm({ website, setWebsite, idPrefix = "lead", cardId = "get
     const req = submitLead({ website, email, phone }).then(() => true, () => false);
     const [ok] = await Promise.all([req, new Promise((r) => setTimeout(r, RUN_MS + 300))]);
     if (!ok) { setFailed(true); setPhase("form"); return; }
-    setPhase("done");
+    // Hand over to the full-page thank-you view (see App.jsx)
+    window.dispatchEvent(new CustomEvent("rn:thanks", { detail: { domain: cleanDomain(website), email: email.trim(), phone: phone.trim() } }));
+    setEmail(""); setPhone(""); setPhase("form");
   }
 
   return (
@@ -166,7 +139,6 @@ export function LeadForm({ website, setWebsite, idPrefix = "lead", cardId = "get
           </motion.form>
         )}
         {phase === "working" && <ScanLoader key="w" domain={cleanDomain(website)} />}
-        {phase === "done" && <Success key="d" domain={cleanDomain(website)} email={email} phone={phone} />}
       </AnimatePresence>
     </div>
   );

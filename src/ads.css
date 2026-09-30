@@ -731,3 +731,45 @@ body { background: var(--page); }
 .ok-list > span > span { display: block; min-width: 0; overflow-wrap: anywhere; }
 .metric-row { display: grid; grid-template-columns: minmax(0, 1fr) auto; column-gap: 10px; row-gap: 5px; align-items: center; }
 .metric-row > :last-child { grid-column: 1 / -1; }
+
+/* ---------- Thank-you page ---------- */
+.ty { background: var(--bg); }
+.ty-hero { position: relative; overflow: hidden; padding: clamp(56px, 8vw, 96px) 0 clamp(48px, 6vw, 72px); border-bottom: 1px solid var(--line); }
+.ty-glow { position: absolute; inset: 0; background: radial-gradient(640px 320px at 50% 0%, rgba(229,57,53,.10), transparent 70%); pointer-events: none; }
+.ty-hero-in { position: relative; display: grid; justify-items: center; text-align: center; gap: 16px; }
+.ty-check { filter: drop-shadow(0 12px 24px rgba(229,57,53,.28)); margin-bottom: 4px; }
+.ty-kicker { font-family: var(--f-mono); font-size: 12px; letter-spacing: .08em; text-transform: uppercase; color: var(--red); }
+.ty-title { margin: 0; font-family: var(--f-display); font-weight: 600; font-size: clamp(32px, 5vw, 52px); line-height: 1.05; letter-spacing: -0.03em; max-width: 18ch; }
+.ty-title em { font-style: normal; color: var(--red); }
+.ty-sub { margin: 0; font-size: clamp(16px, 1.6vw, 18px); color: var(--muted); max-width: 48ch; }
+.ty-sub b { color: var(--ink); }
+.ty-cards { display: grid; grid-template-columns: repeat(3, minmax(0, 1fr)); gap: 12px; width: 100%; max-width: 860px; margin-top: 16px; text-align: left; }
+.ty-card { display: flex; gap: 12px; align-items: center; padding: 16px 18px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface-2); min-width: 0; }
+.ty-card small { display: block; font-size: 12px; color: var(--muted); margin-bottom: 2px; }
+.ty-card b { display: block; font-size: 14.5px; font-weight: 600; overflow-wrap: anywhere; }
+.ty-card > div { min-width: 0; }
+.ty-ic { width: 40px; height: 40px; border-radius: 12px; background: #fff; border: 1px solid #f6d6d5; color: var(--red); display: grid; place-items: center; flex: none; }
+.ty-actions { display: flex; gap: 10px; flex-wrap: wrap; justify-content: center; margin-top: 12px; }
+.ty-btn { height: 50px; padding: 0 24px; gap: 8px; text-decoration: none; }
+.ty-sec { padding: clamp(48px, 6vw, 80px) 0 clamp(56px, 7vw, 96px); background: var(--surface-2); }
+.ty-grid { display: grid; grid-template-columns: repeat(2, minmax(0, 1fr)); gap: 20px; }
+.ty-panel { background: var(--bg); border: 1px solid var(--line); border-radius: 24px; padding: clamp(22px, 3vw, 32px); display: grid; gap: 20px; align-content: start; }
+.ty-steps { list-style: none; margin: 0; padding: 0; display: grid; gap: 18px; }
+.ty-steps li { display: flex; gap: 14px; align-items: flex-start; }
+.ty-steps b, .ty-inside b { display: block; font-size: 15px; font-weight: 600; }
+.ty-steps p, .ty-inside p { margin: 3px 0 0; font-size: 13.5px; color: var(--muted); line-height: 1.5; }
+.ty-n { width: 30px; height: 30px; border-radius: 50%; background: var(--ink); color: #fff; font-family: var(--f-mono); font-size: 13px; display: grid; place-items: center; flex: none; }
+.ty-engines { border-top: 1px solid var(--line); padding-top: 16px; display: grid; gap: 10px; }
+.ty-engines small { font-size: 12px; color: var(--muted); }
+.ty-engines > div { display: flex; flex-wrap: wrap; gap: 8px; }
+.ty-engines span { display: inline-flex; align-items: center; gap: 6px; height: 32px; padding: 0 12px 0 6px; border-radius: 99px; border: 1px solid var(--line); font-size: 13px; background: var(--surface-2); }
+.ty-engines img { width: 20px; height: 20px; object-fit: contain; border-radius: 6px; background: #fff; padding: 1px; }
+.ty-inside { display: grid; gap: 12px; }
+.ty-inside > div { display: flex; gap: 14px; align-items: flex-start; padding: 14px; border-radius: 16px; border: 1px solid var(--line); background: var(--surface-2); }
+.ty-note { display: flex; gap: 8px; align-items: center; justify-content: center; margin-top: 28px; font-size: 13px; color: var(--muted); text-align: center; }
+.ty-note svg { flex: none; }
+@media (max-width: 860px) {
+  .ty-cards, .ty-grid { grid-template-columns: minmax(0, 1fr); }
+  .ty-actions { width: 100%; }
+  .ty-btn { flex: 1 1 100%; justify-content: center; }
+}

@@ -22,7 +22,8 @@ npm run build:single  # dist-single/index.html, one self-contained file
 5. **Pricing:** Solo, Team, Pro, Custom (launch prices).
 6. **Report preview:** locked preview personalised with the visitor's domain.
 7. **Final form:** website, business email, phone -> scan animation -> confirmation.
-8. **Footer:** Contact, Terms, Privacy, Sub-processors, Cookie Policy, Cookie settings, Refund & Cancellation, Shipping & Delivery. Each opens in an in-page viewer; nothing links away from the page.
+8. **Thank-you page:** after a successful submit the page switches to a full thank-you view at `#thank-you` (email, phone, website, what happens next, what's in the report, Login to dashboard). It pushes `{ event: "thank_you_view" }` to `window.dataLayer`.
+9. **Footer:** Contact, Terms, Privacy, Sub-processors, Cookie Policy, Cookie settings, Refund & Cancellation, Shipping & Delivery. Each opens in an in-page viewer; nothing links away from the page.
 
 The website typed in the hero carries through to the pop-up, report preview and final form.
 
@@ -31,6 +32,7 @@ The website typed in the hero carries through to the pop-up, report preview and 
 - `src/lead.js`: validation, attribution (UTM + click IDs) and `submitLead()`
 - `src/legal.js`: policy summaries shown in the footer viewer
 - `src/sections/Convert.jsx`: lead form, scan loader, success state, hero pop-up (`ReportModal`)
+- `src/sections/ThankYou.jsx`: thank-you page shown after submit
 - `src/sections/Footer.jsx`: footer and document viewer
 - `src/assets/engines/`: ChatGPT, Gemini, Perplexity, Google AI logos
 - `src/assets/brand/`: RankNexus logo, wordmark and RN mark (SVG)
