@@ -13,13 +13,17 @@ const rise = (d) => ({ initial: { y: "105%" }, animate: { y: "0%" }, transition:
 const fade = (d) => ({ initial: { opacity: 0, y: 14 }, animate: { opacity: 1, y: 0 }, transition: { duration: 0.7, ease, delay: d } });
 
 export default function ThankYou({ lead }) {
-  const { domain, email, phone } = lead;
+  // lead is null when /thankyou is opened directly (no form submitted in this tab)
+  const { domain, email, phone } = lead || {};
 
   useEffect(() => {
     window.scrollTo({ top: 0 });
     document.title = "Thank you | RankNexus Search Intelligence Report";
-    window.dataLayer = window.dataLayer || [];
-    window.dataLayer.push({ event: "thank_you_view", lead_type: "search_intelligence_report" });
+    // Only count a conversion when the visitor actually submitted the form
+    if (lead) {
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push({ event: "thank_you_view", lead_type: "search_intelligence_report" });
+    }
     const html = document.documentElement;
     const prev = html.style.overflow;
     html.style.overflow = "hidden";
@@ -31,7 +35,7 @@ export default function ThankYou({ lead }) {
     ["Report sent to", email],
     ["Specialist may call", phone],
     ["Website", domain],
-  ];
+  ].filter(([, v]) => v);
 
   return (
     <main className="ty">
@@ -59,12 +63,12 @@ export default function ThankYou({ lead }) {
           <span className="ty-line"><motion.span className="ty-l2" {...rise(0.9)}>Your report is <em>on its way.</em></motion.span></span>
         </h1>
 
-        <motion.p className="ty-sub" {...fade(1.2)}>We're building the full Search Intelligence Report for <b>{domain}</b>.</motion.p>
+        <motion.p className="ty-sub" {...fade(1.2)}>{domain ? <>We're building the full Search Intelligence Report for <b>{domain}</b>.</> : "We're building your full Search Intelligence Report. It will land in your inbox shortly."}</motion.p>
 
         <motion.div className="ty-bottom" {...fade(1.4)}>
-          <dl className="ty-facts">
+          {facts.length > 0 && <dl className="ty-facts">
             {facts.map(([k, v]) => (<div key={k}><dt>{k}</dt><dd>{v}</dd></div>))}
-          </dl>
+          </dl>}
           <a className="btn ty-btn" href={DASHBOARD_URL}>Login to dashboard <ArrowRight size={18} className="arrow" /></a>
         </motion.div>
       </div>

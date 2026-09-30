@@ -16,7 +16,6 @@ import ThankYou from "./sections/ThankYou.jsx";
 // Thank-you page lives at <base>/thankyou (e.g. ranknexus.ai/usa/meta-ads/thankyou)
 // Worked out from the current URL so it works wherever the page is hosted
 const LANDING = location.pathname.replace(/\/thankyou(\.html)?\/?$/, "").replace(/\/index\.html$/, "").replace(/\/$/, "") || "";
-const BASE = LANDING + "/";
 const TY_PATH = LANDING + "/thankyou";
 const LEAD_KEY = "rn_lead";
 const onThankYouPath = () => /\/thankyou(\.html)?\/?$/.test(location.pathname) || location.hash === "#thankyou";
@@ -29,20 +28,22 @@ export default function App() {
   const domain = isValidDomain(website) ? cleanDomain(website) : "";
   // After a successful submit the page switches to the thank-you view at /thankyou
   const [lead, setLead] = useState(() => (onThankYouPath() ? readLead() : null));
+  // /thankyou shows even when opened directly; details appear only after a real submit
+  const [onTy, setOnTy] = useState(onThankYouPath);
 
   useEffect(() => {
     // Opened /thankyou directly without submitting: send them to the landing page
-    if (onThankYouPath() && !readLead()) { if (location.protocol === "file:") history.replaceState(null, "", location.pathname); else location.replace(BASE); return; }
     const TITLE = "RankNexus Search Intelligence Report";
     const onThanks = (e) => {
       setModal(false);
       setLead(e.detail);
+      setOnTy(true);
       try { sessionStorage.setItem(LEAD_KEY, JSON.stringify(e.detail)); } catch { /* private mode */ }
       // Opened straight from disk (file://) there is no server to answer /thankyou, so use a hash there
       if (location.protocol === "file:") history.pushState({ ty: true }, "", "#thankyou");
       else history.pushState({ ty: true }, "", TY_PATH);
     };
-    const onPop = () => { if (onThankYouPath()) setLead(readLead()); else { setLead(null); document.title = TITLE; } };
+    const onPop = () => { const ty = onThankYouPath(); setOnTy(ty); setLead(ty ? readLead() : null); if (!ty) document.title = TITLE; };
     window.addEventListener("rn:thanks", onThanks);
     window.addEventListener("popstate", onPop);
     return () => { window.removeEventListener("rn:thanks", onThanks); window.removeEventListener("popstate", onPop); };
@@ -57,13 +58,13 @@ export default function App() {
 
   return (
     <MotionConfig reducedMotion="user">
-      <header className={"topbar" + (lead ? " topbar-dark" : "")}>
+      <header className={"topbar" + (onTy ? " topbar-dark" : "")}>
         <div className="wrap">
-          <img className="brand-logo" src={lead ? logoWhiteUrl : logoUrl} alt="RankNexus – get cited by AI" width="179" height="42" />
+          <img className="brand-logo" src={onTy ? logoWhiteUrl : logoUrl} alt="RankNexus – get cited by AI" width="179" height="42" />
           <span className="top-note"><span className="live" />Free Search Intelligence Report</span>
         </div>
       </header>
-      {lead ? <ThankYou lead={lead} /> : <main>
+      {onTy ? <ThankYou lead={lead} /> : <main>
         <Hero website={website} setWebsite={setWebsite} onReveal={() => setModal(true)} />
         <Problem />
         <IntelligenceLayer />
@@ -72,7 +73,7 @@ export default function App() {
         <ReportPreview domain={domain} onStart={goToForm} />
         <FinalConversion website={website} setWebsite={setWebsite} />
       </main>}
-      {!lead && <Footer onForm={goToForm} />}
+      {!onTy && <Footer onForm={goToForm} />}
       <ReportModal open={modal} onClose={() => setModal(false)} website={website} setWebsite={setWebsite} />
     </MotionConfig>
   );

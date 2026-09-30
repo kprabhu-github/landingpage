@@ -39,7 +39,7 @@ The website typed in the hero carries through to the pop-up, report preview and 
 
 ## Thank-you URL
 
-After a successful submit the address changes to `<landing path>/thankyou` without reloading. So a reload or a direct visit also works, the build writes `thankyou.html` and `thankyou/index.html` next to `index.html` (in `dist/`, `dist-single/` and `deploy/`). Upload all three with the page. Opening `/thankyou` without having submitted redirects to the landing page. Use "URL contains /thankyou" as the conversion rule in Google Ads, Meta and LinkedIn.
+After a successful submit the address changes to `<landing path>/thankyou` without reloading. So a reload or a direct visit also works, the build writes `thankyou.html` and `thankyou/index.html` next to `index.html` (in `dist/`, `dist-single/` and `deploy/`). Upload all three with the page. Opening `/thankyou` directly shows the page without the personal details. The `thank_you_view` dataLayer event fires only after a real submit, so use that event (not the URL) as the conversion trigger.
 
 ## Before launch
 
