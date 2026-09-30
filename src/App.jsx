@@ -14,8 +14,14 @@ import Footer from "./sections/Footer.jsx";
 import ThankYou from "./sections/ThankYou.jsx";
 
 // Thank-you page lives at <base>/thank-you (e.g. ranknexus.ai/usa/meta-ads/thank-you)
-// Worked out from the current URL so it works wherever the page is hosted
-const LANDING = location.pathname.replace(/\/thank-you(\.html)?\/?$/, "").replace(/\/index\.html$/, "").replace(/\/$/, "") || "";
+// Landing path: the build's base ("/usa/meta-ads") on the live site, or worked out from the URL elsewhere
+const BUILD_BASE = import.meta.env.BASE_URL.startsWith("/") ? import.meta.env.BASE_URL.replace(/\/$/, "") : null;
+const LANDING = BUILD_BASE ?? (location.pathname.replace(/\/thank-you(\.html)?\/?$/, "").replace(/\/index\.html$/, "").replace(/\/$/, "") || "");
+// Any other address under the landing path (a typo, the old /thankyou...) goes back to the landing page
+if (BUILD_BASE && location.protocol !== "file:" && location.pathname.startsWith(BUILD_BASE + "/")) {
+  const rest = location.pathname.slice(BUILD_BASE.length).replace(/\/$/, "");
+  if (rest && !/^\/(index\.html|thank-you(\.html)?)$/.test(rest)) location.replace(BUILD_BASE + location.search);
+}
 const TY_PATH = LANDING + "/thank-you";
 const LEAD_KEY = "rn_lead";
 const onThankYouPath = () => /\/thank-you(\.html)?\/?$/.test(location.pathname) || location.hash === "#thank-you";
