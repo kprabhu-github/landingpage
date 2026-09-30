@@ -4,17 +4,17 @@ import { viteSingleFile } from "vite-plugin-singlefile";
 import { copyFileSync, mkdirSync } from "node:fs";
 import { join } from "node:path";
 
-// The thank-you page is served at <base>/thankyou. Copy index.html there so a
-// reload or direct visit works on any static host (thankyou.html for hosts with
-// extensionless URLs, thankyou/index.html for folder-style hosts).
+// The thank-you page is served at <base>/thank-you. Copy index.html there so a
+// reload or direct visit works on any static host (thank-you.html for hosts with
+// extensionless URLs, thank-you/index.html for folder-style hosts).
 const thankYouPage = (outDir) => ({
-  name: "thankyou-page",
+  name: "thank-you-page",
   apply: "build",
   closeBundle() {
     const src = join(outDir, "index.html");
-    copyFileSync(src, join(outDir, "thankyou.html"));
-    mkdirSync(join(outDir, "thankyou"), { recursive: true });
-    copyFileSync(src, join(outDir, "thankyou", "index.html"));
+    copyFileSync(src, join(outDir, "thank-you.html"));
+    mkdirSync(join(outDir, "thank-you"), { recursive: true });
+    copyFileSync(src, join(outDir, "thank-you", "index.html"));
   },
 });
 

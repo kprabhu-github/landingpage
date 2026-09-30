@@ -22,7 +22,7 @@ npm run build:single  # dist-single/index.html, one self-contained file
 5. **Pricing:** Solo, Team, Pro, Custom (launch prices).
 6. **Report preview:** locked preview personalised with the visitor's domain.
 7. **Final form:** website, business email, phone -> scan animation -> confirmation.
-8. **Thank-you page:** after a successful submit the page switches to a full thank-you view at `/thankyou` (e.g. `ranknexus.ai/usa/meta-ads/thankyou`) (dark, one screen, no scroll: a red slash wipes in, giant 'Thank you' with a green tick, 'Your report is on its way.', email/phone/website, Login to dashboard; the RankNexus X floats in the background). It pushes `{ event: "thank_you_view" }` to `window.dataLayer`.
+8. **Thank-you page:** after a successful submit the page switches to a full thank-you view at `/thank-you` (e.g. `ranknexus.ai/usa/meta-ads/thank-you`) (dark, one screen, no scroll: a red slash wipes in, giant 'Thank you' with a green tick, 'Your report is on its way.', email/phone/website, Login to dashboard; the RankNexus X floats in the background). It pushes `{ event: "thank_you_view" }` to `window.dataLayer`.
 9. **Footer:** Contact, Terms, Privacy, Sub-processors, Cookie Policy, Cookie settings, Refund & Cancellation, Shipping & Delivery. Each opens in an in-page viewer; nothing links away from the page.
 
 The website typed in the hero carries through to the pop-up, report preview and final form.
@@ -39,7 +39,7 @@ The website typed in the hero carries through to the pop-up, report preview and 
 
 ## Thank-you URL
 
-After a successful submit the address changes to `<landing path>/thankyou` without reloading. So a reload or a direct visit also works, the build writes `thankyou.html` and `thankyou/index.html` next to `index.html` (in `dist/`, `dist-single/` and `deploy/`). Upload all three with the page. Opening `/thankyou` directly shows the page without the personal details. The `thank_you_view` dataLayer event fires only after a real submit, so use that event (not the URL) as the conversion trigger.
+After a successful submit the address changes to `<landing path>/thank-you` without reloading. So a reload or a direct visit also works, the build writes `thank-you.html` and `thank-you/index.html` next to `index.html` (in `dist/`, `dist-single/` and `deploy/`). Upload all three with the page. Opening `/thank-you` directly (without submitting in that tab) redirects to the landing page, so "URL contains /thank-you" is safe as the conversion rule. The `thank_you_view` dataLayer event fires at the same moment.
 
 ## Before launch
 

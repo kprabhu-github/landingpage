@@ -13,12 +13,13 @@ import { FinalConversion, ReportModal } from "./sections/Convert.jsx";
 import Footer from "./sections/Footer.jsx";
 import ThankYou from "./sections/ThankYou.jsx";
 
-// Thank-you page lives at <base>/thankyou (e.g. ranknexus.ai/usa/meta-ads/thankyou)
+// Thank-you page lives at <base>/thank-you (e.g. ranknexus.ai/usa/meta-ads/thank-you)
 // Worked out from the current URL so it works wherever the page is hosted
-const LANDING = location.pathname.replace(/\/thankyou(\.html)?\/?$/, "").replace(/\/index\.html$/, "").replace(/\/$/, "") || "";
-const TY_PATH = LANDING + "/thankyou";
+const LANDING = location.pathname.replace(/\/thank-you(\.html)?\/?$/, "").replace(/\/index\.html$/, "").replace(/\/$/, "") || "";
+const BASE = LANDING + "/";
+const TY_PATH = LANDING + "/thank-you";
 const LEAD_KEY = "rn_lead";
-const onThankYouPath = () => /\/thankyou(\.html)?\/?$/.test(location.pathname) || location.hash === "#thankyou";
+const onThankYouPath = () => /\/thank-you(\.html)?\/?$/.test(location.pathname) || location.hash === "#thank-you";
 const readLead = () => { try { return JSON.parse(sessionStorage.getItem(LEAD_KEY) || "null"); } catch { return null; } };
 
 export default function App() {
@@ -26,24 +27,25 @@ export default function App() {
   const [website, setWebsite] = useState("");
   const [modal, setModal] = useState(false);
   const domain = isValidDomain(website) ? cleanDomain(website) : "";
-  // After a successful submit the page switches to the thank-you view at /thankyou
+  // After a successful submit the page switches to the thank-you view at /thank-you
   const [lead, setLead] = useState(() => (onThankYouPath() ? readLead() : null));
-  // /thankyou shows even when opened directly; details appear only after a real submit
-  const [onTy, setOnTy] = useState(onThankYouPath);
+  // /thank-you only shows after a real submit in this tab
+  const [onTy, setOnTy] = useState(() => onThankYouPath() && !!readLead());
 
   useEffect(() => {
-    // Opened /thankyou directly without submitting: send them to the landing page
+    // Opened /thank-you directly without submitting: send them to the landing page
+    if (onThankYouPath() && !readLead()) { if (location.protocol === "file:") history.replaceState(null, "", location.pathname); else location.replace(BASE); return; }
     const TITLE = "RankNexus Search Intelligence Report";
     const onThanks = (e) => {
       setModal(false);
       setLead(e.detail);
       setOnTy(true);
       try { sessionStorage.setItem(LEAD_KEY, JSON.stringify(e.detail)); } catch { /* private mode */ }
-      // Opened straight from disk (file://) there is no server to answer /thankyou, so use a hash there
-      if (location.protocol === "file:") history.pushState({ ty: true }, "", "#thankyou");
+      // Opened straight from disk (file://) there is no server to answer /thank-you, so use a hash there
+      if (location.protocol === "file:") history.pushState({ ty: true }, "", "#thank-you");
       else history.pushState({ ty: true }, "", TY_PATH);
     };
-    const onPop = () => { const ty = onThankYouPath(); setOnTy(ty); setLead(ty ? readLead() : null); if (!ty) document.title = TITLE; };
+    const onPop = () => { const ty = onThankYouPath() && !!readLead(); setOnTy(ty); setLead(ty ? readLead() : null); if (!ty) document.title = TITLE; };
     window.addEventListener("rn:thanks", onThanks);
     window.addEventListener("popstate", onPop);
     return () => { window.removeEventListener("rn:thanks", onThanks); window.removeEventListener("popstate", onPop); };
